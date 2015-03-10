@@ -3,8 +3,16 @@ require "pry"
 #CLASSES#
 #########
 class Ingredients
+  # make valid ingredients array a constant and move outside method
+  VALID_INGREDIENTS = ["brussels sprouts", "spinach", "eggs", "milk", "tofu",
+                      "seitan", "bell peppers", "quinoa", "kale", "chocolate",
+                      "beer", "wine", "whiskey"]
+  # class method to list safe ingredients
+  def self.list_valid_ingredients
+    VALID_INGREDIENTS
+  end
 
-  def initialize(quantity, unit = "", name = "")
+  def initialize(quantity, unit, name)
     @quantity = quantity.to_f
     @unit = unit
     @name = name
@@ -24,11 +32,7 @@ class Ingredients
   end
 
   def valid_ingredient?
-    valid_ingredients = ["brussels sprouts", "spinach", "eggs", "milk", "tofu",
-                        "seitan", "bell peppers", "quinoa", "kale", "chocolate",
-                        "beer", "wine", "whiskey"]
-
-    valid_ingredients.include?(@name.downcase)
+    VALID_INGREDIENTS.include?(@name.downcase)
   end
 
 end
@@ -40,10 +44,6 @@ class Recipe
     @name = name
     @instructions = instructions
     @ingredients = ingredients
-  end
-  # new method to access ingredients from outside
-  def ingredients
-    @ingredients
   end
 
   def list_ingredients
@@ -141,3 +141,5 @@ puts "recipe summary for No No Juice"
 puts no_no_juice.summary
 puts "Can I eat the recipe?"
 puts no_no_juice.can_eat?
+
+puts Ingredients.list_valid_ingredients
